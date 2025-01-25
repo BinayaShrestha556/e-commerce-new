@@ -34,3 +34,10 @@ export interface Images{
     id: string
     url: string
 }
+export interface User{
+    id:string
+    name:string
+    email:string
+    image:string
+    role:"ADMIN"|"USER"
+}

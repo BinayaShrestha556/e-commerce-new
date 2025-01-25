@@ -9,6 +9,7 @@ import NoResult from "@/components/ui/no-result";
 import ProductCard from "@/components/ui/product-card";
 import MobileFillers from "./components/mobile-filters";
 
+
 export const revalidate = 0;
 interface CategoryPageProps {
   params: {
@@ -24,20 +25,23 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
   params,
   searchParams,
 }) => {
+  const {categoryId}=await params
+  const {colorId,sizeId}=await searchParams
   const products = await getProducts({
-    categoryId: params.categoryId,
-    colorId: searchParams.colorId,
-    sizeId: searchParams.sizeId,
+    categoryId,
+    colorId,
+    sizeId
   });
   const sizes = await getSizes();
   const color = await getColors();
-  const category = await getCategory(params.categoryId);
+  
+  const category = await getCategory( categoryId);
   return (
     <div className="bg-white">
       <Container>
         <Billboard data={category.billboard} />
         <div className="px-4 sm:px-6 lg:px-8 pb-24">
-          <div className="lg:grid lg:grid-cols-5 lg-gap-x-8">
+          <div className="lg:grid lg:grid-cols-5 lg:gap-x-8 mt-4">
             <MobileFillers sizes={sizes} colors={color}/>
             <div className="hidden lg:block">
               <Filter valueKey="sizeId" name="Sizes" data={sizes} />
@@ -53,6 +57,7 @@ const CategoryPage: React.FC<CategoryPageProps> = async ({
                     }
                 </div>
             </div>
+
           </div>
         </div>
       </Container>

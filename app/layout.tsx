@@ -5,7 +5,7 @@ import Footer from "@/components/footer";
 import Navbar from "@/components/navbar";
 import ModalProvider from "@/providers/modal-provider";
 import ToastProvider from "@/providers/toast-provider";
-import { ClerkProvider } from "@clerk/nextjs";
+
 
 
 
@@ -25,7 +25,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+
     <html lang="en">
       <body
         className={`${geistMono.className} antialiased`}
@@ -37,6 +37,6 @@ export default function RootLayout({
         <Footer/>
       </body>
     </html>
-    </ClerkProvider>
+
   );
 }
