@@ -13,7 +13,7 @@ export interface Product{
     category:Category
     name:string;
     isFeatured:boolean
-    size:Size
+    size:Size[]
     price:string
     color:Color
     images:Images[]
