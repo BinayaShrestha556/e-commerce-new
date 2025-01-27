@@ -4,7 +4,7 @@ import Currency from "@/components/ui/currency"
 import IconButton from "@/components/ui/icon-button"
 import useCart from "@/hooks/use-cart"
 import useCheckOutStore from "@/hooks/use-checkout_items"
-import { Product } from "@/types"
+import { Product, Size } from "@/types"
 import { Checkbox } from "@material-tailwind/react"
 import {   LucideCheckSquare2, X } from "lucide-react"
 import Image from "next/image"
@@ -12,8 +12,9 @@ import { useState } from "react"
 
 interface CartItemProps{
     data:Product
+    size: Size
 }
-const CartItem:React.FC<CartItemProps>=({data})=>{
+const CartItem:React.FC<CartItemProps>=({data,size})=>{
     const cart = useCart()
     const checkOut=useCheckOutStore()
     // const [checkBox,setCheckBox]=useState(false)
@@ -25,7 +26,7 @@ const CartItem:React.FC<CartItemProps>=({data})=>{
         if(checkOut.items.some((item) => item.product.id === data.id)) 
             checkOut.removeItem(data.id)
         else
-        checkOut.addItem(data)
+        checkOut.addItem(data,size)
         // console.log(checkOut.items)
     }
     
@@ -53,7 +54,7 @@ const CartItem:React.FC<CartItemProps>=({data})=>{
                     </div>
                     <div className="mt-1 flex text-sm">
                         <p className="text-gray-500">{data.color.name}</p>
-                        <p className="text-gray-500 ml-4 border-gray-200 pl-4 border-l">{data.size.name}</p>
+                        <p className="text-gray-500 ml-4 border-gray-200 pl-4 border-l">{size.name}</p>
 
                     </div>
                     <Currency value={data.price}/>

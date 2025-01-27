@@ -3,7 +3,6 @@
 import {Button} from "@/components/ui/Button"
 import Currency from "@/components/ui/currency"
 import useCart from "@/hooks/use-cart"
-import axios from "axios"
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import toast from "react-hot-toast"
@@ -14,10 +13,11 @@ import { useRouter } from "next/navigation"
 const Summary=()=>{
     const searchParams=useSearchParams()
     const items=useCart((state)=>state.items)
+    const checkOutItems=useCheckOutStore(e=>e.items)
     const checkOutitems=useCheckOutStore(state=>state.items)
     const removeAll=useCart((state)=>state.removeAll)
-    const totalPrice=items.reduce((total,item)=>{
-        return total+Number(item.price)
+    const totalPrice=checkOutItems.reduce((total,item)=>{
+        return total+Number(item.product.price)*item.number
     },0)
     const router=useRouter()
 

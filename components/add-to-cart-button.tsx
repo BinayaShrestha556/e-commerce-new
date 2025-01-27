@@ -2,7 +2,7 @@
 
 import { Product, Size } from "@/types"
 import { Button } from "./ui/Button"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import useCart from "@/hooks/use-cart"
 
 interface SizeProps{
@@ -21,13 +21,21 @@ const AddToCart:React.FC<SizeProps> = ({product}) => {
         }
         cart.addItem(product,size_)
     }
+    const [isMounted, setIsmounted] = useState(false);
+ 
+ 
+    useEffect(() => {
+     
+      setIsmounted(true);
+    }, []);
+    if (!isMounted) return null;
     
     const cart=useCart()
   return (
     <div className="w-full flex flex-col gap-6">
         <div className="flex gap-2 items-center">
            Available sizes:  {product.size?.map((size)=>(
-                <Button variant={size_?.id===size.id?"default":"outline"} onClick={()=>{setMessage("");setSize(size)}}>{size.name}</Button>
+                <Button key={size.id} variant={size_?.id===size.id?"default":"outline"} onClick={()=>{setMessage("");setSize(size)}}>{size.name}</Button>
             ))}
         </div>
         {message!==""&&<p className="text-sm text-destructive">{message}</p>}

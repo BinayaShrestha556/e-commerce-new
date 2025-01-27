@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import { Category } from "@/types";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 interface MainNavProps {
   data: Category[];
@@ -22,11 +22,15 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }));
+  const [isMounted, setIsmounted] = useState(false);
 
   const user=useUser()
   useEffect(() => {
    user.setUserFromApi()
+   setIsmounted(true);
   }, [user.setUserFromApi]);
+
+  if (!isMounted) return null;
   return (
     <nav className="mx-6 flex items-center space-x-4 lg:space-x-6">
       {routes?.map((route) => (

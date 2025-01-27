@@ -26,7 +26,7 @@ const CartPage=()=>{
                             <ul>
                                 {cart.items.map((item)=>(
                                     <CartItem
-                                    key={item.id} data={item}/>
+                                    key={item.product.id} size={item.size} data={item.product}/>
                                 ))}
                             </ul>
                         </div>
