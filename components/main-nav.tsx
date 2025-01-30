@@ -17,9 +17,9 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }));
-  const [isMounted, setIsmounted] = useState(false);
-
+  
   const user = useUser();
+  const [isMounted, setIsmounted] = useState(false);
   useEffect(() => {
     user.setUserFromApi();
     setIsmounted(true);

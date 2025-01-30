@@ -30,7 +30,6 @@ const CartItem: React.FC<CartItemProps> = ({ data, size }) => {
   return (
     <li className="flex gap-x-3 py-6 border-b">
       <div className="self-center relative flex">
-
         <input
           type="checkbox"
           className="w-4 h-4 appearance-none border rounded-sm z-30 border-black"

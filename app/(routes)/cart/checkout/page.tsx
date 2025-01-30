@@ -1,6 +1,5 @@
 "use client";
 import { Button } from "@/components/ui/Button";
-import Summary from "../components/summary";
 import Currency from "@/components/ui/currency";
 import CheckOutItems from "../components/check-out-items";
 import useCheckOutStore from "@/hooks/use-checkout_items";
