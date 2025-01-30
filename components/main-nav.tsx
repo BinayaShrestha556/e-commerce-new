@@ -8,12 +8,7 @@ import { useEffect, useState } from "react";
 interface MainNavProps {
   data: Category[];
 }
-interface NotLoggedIn{
-  loggedIn:boolean
-  
-}
-import {User} from "@/types"
-import axios from "axios";
+
 import useUser from "@/hooks/use-user";
 const MainNav: React.FC<MainNavProps> = ({ data }) => {
   const pathname = usePathname();
@@ -24,10 +19,10 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
   }));
   const [isMounted, setIsmounted] = useState(false);
 
-  const user=useUser()
+  const user = useUser();
   useEffect(() => {
-   user.setUserFromApi()
-   setIsmounted(true);
+    user.setUserFromApi();
+    setIsmounted(true);
   }, [user.setUserFromApi]);
 
   if (!isMounted) return null;

@@ -11,6 +11,7 @@ interface SizeProps{
 
 
 const AddToCart:React.FC<SizeProps> = ({product}) => {
+  const cart=useCart()
     const [size_,setSize]=useState<Size>()
     const [message,setMessage]=useState("")
     const onClick = ()=>{
@@ -30,7 +31,6 @@ const AddToCart:React.FC<SizeProps> = ({product}) => {
     }, []);
     if (!isMounted) return null;
     
-    const cart=useCart()
   return (
     <div className="w-full flex flex-col gap-6">
         <div className="flex gap-2 items-center">

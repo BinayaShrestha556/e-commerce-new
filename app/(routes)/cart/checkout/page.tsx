@@ -25,6 +25,10 @@ import {
 } from "@/components/ui/select";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import useUser from "@/hooks/use-user";
+import useCart from "@/hooks/use-cart";
+import toast from "react-hot-toast";
 const formSchema = z.object({
 
   contactNumber: z
@@ -36,6 +40,7 @@ const formSchema = z.object({
 type FormValues = z.infer<typeof formSchema>;
 const page = () => {
   const items = useCheckOutStore((state) => state.items);
+  const cart = useCart()
   const totalPrice = items.reduce((total, item) => {
     return total + Number(item.product.price) * item.number;
   }, 0);
@@ -62,13 +67,26 @@ const page = () => {
     };
    try {
     await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/orders`,data,{withCredentials:true})
+    items.map((e)=>{
+      cart.removeItem(e.product.id)
+    })
+    toast.success("Order placed")
+    router.push("/")
    } catch (error) {
     console.log(error)
    } 
   };
-  const [mounted, setMounted] = useState(false);
+  const [mounted,setIsmounted]=useState(false)
 
-  useEffect(() => setMounted(true), []);
+  const router=useRouter()
+    const user=useUser()
+    useEffect(()=>{
+
+        if(!user.loggedIn)
+            router.push("/")
+        setIsmounted(true)
+
+    },[])
   if (!mounted) return null;
 
   return (
@@ -159,7 +177,7 @@ const page = () => {
                 </FormItem>
               )}
             />
-            <Button>order</Button>
+            <Button >order</Button>
           </form>
         </Form>
       </div>

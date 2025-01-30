@@ -1,22 +1,23 @@
 import { Product, Size } from "@/types";
-import toast from "react-hot-toast";
+
 import { create } from "zustand";
 
-
 interface CheckoutStore {
-  items: {product:Product,size:Size,number:number}[];
-  addItem: (data: Product,size:Size) => void;
+  items: { product: Product; size: Size; number: number }[];
+  addItem: (data: Product, size: Size) => void;
   removeItem: (id: string) => void;
-  removeAll:()=>void
-  addNumber:(id:string)=>void
-  reduceNumber:(id:string)=>void
+  removeAll: () => void;
+  addNumber: (id: string) => void;
+  reduceNumber: (id: string) => void;
 }
 const useCheckOutStore = create<CheckoutStore>((set) => ({
   items: [],
-  addItem: (data: Product,size:Size) => {
+  addItem: (data: Product, size: Size) => {
     set((state) => {
       // Check if the item already exists in the cart
-      const existingItem = state.items.find((item) => item.product.id === data.id);
+      const existingItem = state.items.find(
+        (item) => item.product.id === data.id
+      );
 
       if (existingItem) {
         // Item already exists, increase its quantity
@@ -26,12 +27,14 @@ const useCheckOutStore = create<CheckoutStore>((set) => ({
         //     : item
         // );
         // toast.success("Increased item quantity!");
-        return { items:state.items };
+        return { items: state.items };
       }
 
       // Add new item to the cart
       // toast.success("Item added to cart!");
-      return { items: [...state.items, { product: data, number: 1,size:size }] };
+      return {
+        items: [...state.items, { product: data, number: 1, size: size }],
+      };
     });
   },
   removeItem: (id: string) => {
@@ -45,24 +48,27 @@ const useCheckOutStore = create<CheckoutStore>((set) => ({
     set({ items: [] });
     // toast.success("All items removed from cart!");
   },
-  addNumber:(id)=>{
-    set((state)=>{
-      const updatedItems=state.items.map((item)=>  item.product.id === id
-          ? { ...item, number: item.number + 1 }
-          : item)
-          return {items:updatedItems}
-    })
-
+  addNumber: (id) => {
+    set((state) => {
+      const updatedItems = state.items.map((item) =>
+        item.product.id === id ? { ...item, number: item.number + 1 } : item
+      );
+      return { items: updatedItems };
+    });
   },
-  reduceNumber:(id)=>{
-    set((state)=>{
-      const updatedItems=state.items.map((item)=>  item.product.id === id
-          ? { ...item, number: item.number===1?item.number:item.number - 1 }
-          : item)
-          return {items:updatedItems}
-    })
-  }
+  reduceNumber: (id) => {
+    set((state) => {
+      const updatedItems = state.items.map((item) =>
+        item.product.id === id
+          ? {
+              ...item,
+              number: item.number === 1 ? item.number : item.number - 1,
+            }
+          : item
+      );
+      return { items: updatedItems };
+    });
+  },
 }));
-
 
 export default useCheckOutStore;

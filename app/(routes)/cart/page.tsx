@@ -6,12 +6,20 @@ import { useEffect, useState } from "react"
 import CartItem from "./components/cart-item"
 import NoResult from "@/components/ui/no-result"
 import Summary from "./components/summary"
+import useUser from "@/hooks/use-user"
+import { useRouter } from "next/navigation"
 
 const CartPage=()=>{
     const cart=useCart()
     const [mounted,setIsmounted]=useState(false)
+    const router=useRouter()
+    const user=useUser()
     useEffect(()=>{
+
+        if(!user.loggedIn)
+            router.push("/")
         setIsmounted(true)
+
     },[])
     if(!mounted) return null
     return <div className="bg-white">

@@ -1,7 +1,6 @@
 import { Product } from "@/types"
 import Currency from "./ui/currency"
-import {Button} from "./ui/Button"
-import { ShoppingCart } from "lucide-react"
+
 import AddToCart from "./add-to-cart-button"
 interface InfoProps{
     data:Product
