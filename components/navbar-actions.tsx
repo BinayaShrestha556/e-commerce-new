@@ -1,35 +1,54 @@
 "use client";
 
-import { ShoppingBag } from "lucide-react";
+import { Menu, ShoppingBag } from "lucide-react";
 import { Button } from "./ui/Button";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import useCart from "@/hooks/use-cart";
 import { useRouter } from "next/navigation";
-
 import useUser from "@/hooks/use-user";
-import Image from "next/image";
+import { UserOptions } from "./user-options";
+import { Category } from "@/types";
+import { cn } from "@/lib/utils";
+import Link from "next/link";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 
-const NavbarActions = () => {
+const NavbarActions = ({ data }: { data: Category[] }) => {
   const cart = useCart();
   const router = useRouter();
-  const [isMounted, setIsmounted] = useState(false);
-
   const user = useUser();
-  useEffect(() => {
-    setIsmounted(true);
-  }, []);
-  if (!isMounted) return null;
+
   const onclick = () => {
-    const baseUrl = "http://localhost:3000/auth/users/login";
+    const baseUrl = `${process.env.NEXT_PUBLIC_API}/auth/users/login`;
     const params = new URLSearchParams({
-      redirect: "http://localhost:3001",
+      redirect: "https://localhost:3001",
     });
 
     window.location.href = `${baseUrl}?${params.toString()}`;
   };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <div className="ml-auto flex items-center gap-x-4">
+    <div className="ml-auto flex items-center transition-all gap-x-2 md:gap-x-4">
+       <div className="flex items-center gap-3 z-50 md:hidden">
+    
+    <Popover open={isModalOpen} onOpenChange={setIsModalOpen}  >
+      <PopoverTrigger  asChild>
+   <div className={cn("relative transition ease-in-out duration-150 -mt-1 mr-1 ",isModalOpen&&"rotate-90")}>
+  <div  className={cn("h-1 rounded-full w-7 bg-black mt-1 transition ease-in-out duration-150 ",isModalOpen&&("rotate-45 w-[15px]"))}/>
+  <div className={cn("h-1 rounded-full w-7 bg-black mt-1  ", isModalOpen&&("hidden"))}/>
+
+  <div className={cn("h-1 rounded-full w-7 bg-black mt-1 transition ease-in-out duration-150 ",isModalOpen&&("-rotate-45 w-[15px]"))}/>
+
+   </div>
+      </PopoverTrigger>
+      <PopoverContent  className="flex flex-col w-52 mt-3 gap-3">
+      {
+        data.map((e)=><Link href={`/category/${e.id}`} key={e.id}>{e.name}</Link>)
+      }
+
+      </PopoverContent>
+</Popover>
+  </div>
       <Button
         onClick={() => router.push("/cart")}
         className="flex items-center rounded-full bg-black px-4 py-2"
@@ -38,21 +57,10 @@ const NavbarActions = () => {
         <span className="ml-2 text-sm font-medium text-white">
           {cart.items.length}
         </span>
-        <span>{}</span>
       </Button>
       {!user.loggedIn && <Button onClick={onclick}>signin</Button>}
-      {user.loggedIn && (
-        <Button className="relative h-8 w-8 rounded-full overflow-hidden">
-          {" "}
-          <Image
-            alt=""
-            fill
-            className="object-cover object-center"
-            src={user.user?.image || "/avatar.png"}
-          ></Image>
-        </Button>
-      )}
-    </div>
+      {user.loggedIn && user.user && <UserOptions user={user.user} />}
+      </div>
   );
 };
 

@@ -29,11 +29,11 @@ export const Slider:React.FC<SliderProps> = ({id,number}) => {
 
     }
   return (
-    <div className="flex gap-2">
+    <div className="flex gap-2 text-sm ">
         items:
-        <IconButton className="p-1"  onClick={onDecrease} icon={<Minus size={12}/>}/>
-        <p className={`w-2 text-center ${gray&&"text-gray-400"}`}>{number}</p>
-        <IconButton className="p-1" onClick={onIncrease} icon={<Plus size={12}/>}/>
+        <IconButton className="p-0.5 md:p-1"  onClick={onDecrease} icon={<Minus className="h-2.5 w-2.5 aspect-square md:h-3 md:w-3"/>}/>
+        <p className={`w-2 text-center ${gray&&"text-gray-400 text-sm md:text-base"}`}>{number}</p>
+        <IconButton className="p-0.5 md:p-1" onClick={onIncrease} icon={<Plus className="h-2.5 w-2.5 aspect-square md:h-3 md:w-3"/>}/>
 
 
     </div>

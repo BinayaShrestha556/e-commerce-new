@@ -7,14 +7,14 @@ import { Slider } from "./slider";
 const CheckOutItems = ({ orderNumber = false }: { orderNumber?: boolean }) => {
   const data = useCheckOutStore((store) => store.items);
   return (
-    <div>
+    <div className="w-full">
       {data.map((product) => (
         <div
           key={product.product.id}
-          className="grid w-full mt-5 space-x-3 grid-cols-5"
+          className="grid w-full mt-5  space-x-3 grid-cols-5"
         >
-          <div className="col-span-1 aspect-square">
-            <div className="relative h-full w-full">
+          <div className="  aspect-square">
+            <div className="relative min-h-16 min-w-16 md:h-20 w-full h-full lg:w-24">
               <Image
                 fill
                 src={product.product.images[0]?.url}
@@ -25,7 +25,7 @@ const CheckOutItems = ({ orderNumber = false }: { orderNumber?: boolean }) => {
           </div>
           <div className="col-span-3">
             <p className="font-semibold">{product.product.name}</p>
-            <div className="flex items-center gap-x-4">
+            <div className="flex items-center flex-wrap gap-x-2 md:gap-x-3 lg:gap-x-4">
               <div
                 className="h-4 w-4 rounded-full "
                 style={{ backgroundColor: product.product.color.value }}
@@ -34,11 +34,11 @@ const CheckOutItems = ({ orderNumber = false }: { orderNumber?: boolean }) => {
               <p className="text-sm text-neutral-500">
                 {product.product.category.name}
               </p>
+            <Slider number={product.number} id={product.product.id} />
             </div>
           </div>
           <div className="text-right">
             <Currency value={product.product.price} />
-            <Slider number={product.number} id={product.product.id} />
           </div>
         </div>
       ))}

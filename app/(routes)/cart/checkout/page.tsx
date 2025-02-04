@@ -89,8 +89,8 @@ const page = () => {
   if (!mounted) return null;
 
   return (
-    <div className="m-auto flex w-[80%] gap-6 justify-center mt-10">
-      <div className="mt-16 min-w-64 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
+    <div className="m-auto flex flex-col md:flex-row  w-[80%] gap-8 justify-center mt-10">
+      <div className=" min-w-64 rounded-lg bg-gray-50  lg:mt-0 ">
         <h2 className="text-lg font-medium text-gray-900">Order Summary</h2>
         <CheckOutItems orderNumber={true} />
         <div className="mt-6 space-y-4">
@@ -103,7 +103,7 @@ const page = () => {
         </div>
         <Button className="w-ful mt-6">Checkout</Button>
       </div>
-      <div className="w-[40%]">
+      <div className=" lg:w-[40%] md:w-[60%] w-[80%]">
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}

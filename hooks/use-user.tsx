@@ -15,23 +15,21 @@ const useUser = create<UserStore>((set) => ({
   // Function to fetch user data and update the store
   setUserFromApi: async () => {
     try {
-      const response = await fetch("http://localhost:3000/api/users/get-info", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API}/api/users/get-info`, {
         credentials: "include",
         method:"post" // Ensures cookies are sent with the request
       });
 
       if (response.ok) {
-        const userData: User = await response.json(); // Assuming the API returns user data in JSON
+        const userData = await response.json();
+        const {user,loggedIn}:{user:User,loggedIn:boolean}=userData 
+        // Assuming the API returns user data in JSON
+    
         set({
-          user: userData,
-          loggedIn: true,
+          user,
+          loggedIn
         });
-      } else if (response.status === 400) {
-        // If API returns 400, assume user is not logged in
-        set({
-          user: null,
-          loggedIn: false,
-        });
+     
       } else {
         console.error("Unexpected response from API:", response);
       }

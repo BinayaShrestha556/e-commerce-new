@@ -10,6 +10,7 @@ interface MainNavProps {
 }
 
 import useUser from "@/hooks/use-user";
+import { HamIcon, Menu, SidebarOpen } from "lucide-react";
 const MainNav: React.FC<MainNavProps> = ({ data }) => {
   const pathname = usePathname();
   const routes = data?.map((route) => ({
@@ -27,19 +28,24 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
 
   if (!isMounted) return null;
   return (
-    <nav className="mx-6 flex items-center space-x-4 lg:space-x-6">
+    <nav>
+    <div className="mx-6 md:flex items-center space-x-3 lg:space-x-5 hidden ">
       {routes?.map((route) => (
         <Link
           key={route.href}
           href={route.href}
           className={cn(
-            " text-sm font-medium transition-colors hover:text-black",
+            " text font-medium transition-colors hover:text-black",
             route.active ? "text-black" : "text-neutral-500"
           )}
         >
           {route.label}
         </Link>
       ))}
+
+    </div>
+
+    
     </nav>
   );
 };

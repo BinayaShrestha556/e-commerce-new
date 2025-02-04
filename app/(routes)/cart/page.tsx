@@ -25,10 +25,10 @@ const CartPage=()=>{
     return <div className="bg-white">
         
         <Container>
-                <div className="px-4 py-16 sm:px-6 lg:px-8">
-                    <h1 className=" text-3xl font-bold text-black"> Shopping cart</h1>
+                <div className="px-4 py-7 md:10 lg:14 sm:px-6 lg:px-8">
+                    <h1 className="text-2xl md:text-3xl font-bold text-black"> Shopping cart</h1>
                     {cart.items.length===0&&<div className="mt-10"><NoResult/></div>}
-                    <div className="mt-12 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
+                    <div className=" mt-3 md:mt-5 lg:mt-7 lg:grid lg:grid-cols-12 lg:items-start gap-x-12">
                         <div className="lg:col-span-7">
                             {cart.items.length===0&&<p className="text-neutral-500">No items added to cart.</p>}
                             <ul>
