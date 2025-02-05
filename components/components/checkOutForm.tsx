@@ -28,6 +28,7 @@ import { useRouter } from "next/navigation";
 
 import useCart from "@/hooks/use-cart";
 import toast from "react-hot-toast";
+import NoResult from "../ui/no-result";
 const formSchema = z.object({
 
   contactNumber: z
@@ -86,6 +87,7 @@ const CheckOutForm = () => {
 
     },[])
   if (!mounted) return null;
+  if(items.length===0) return <NoResult/>
 
   return (
     <div className="m-auto flex flex-col md:flex-row  w-[80%] gap-8 justify-center mt-10">
