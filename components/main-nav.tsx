@@ -9,8 +9,7 @@ interface MainNavProps {
   data: Category[];
 }
 
-import useUser from "@/hooks/use-user";
-import { HamIcon, Menu, SidebarOpen } from "lucide-react";
+
 const MainNav: React.FC<MainNavProps> = ({ data }) => {
   const pathname = usePathname();
   const routes = data?.map((route) => ({
@@ -18,13 +17,12 @@ const MainNav: React.FC<MainNavProps> = ({ data }) => {
     label: route.name,
     active: pathname === `/category/${route.id}`,
   }));
-  
-  const user = useUser();
+
   const [isMounted, setIsmounted] = useState(false);
   useEffect(() => {
-    user.setUserFromApi();
+  
     setIsmounted(true);
-  }, [user.setUserFromApi]);
+  }, []);
 
   if (!isMounted) return null;
   return (

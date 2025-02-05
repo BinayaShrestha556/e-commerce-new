@@ -1,12 +1,11 @@
 "use client";
 
-import { Menu, ShoppingBag } from "lucide-react";
+import {  ShoppingBag } from "lucide-react";
 import { Button } from "./ui/Button";
-import { useEffect, useRef, useState } from "react";
+import {  useState } from "react";
 import useCart from "@/hooks/use-cart";
 import { useRouter } from "next/navigation";
-import useUser from "@/hooks/use-user";
-import { UserOptions } from "./user-options";
+
 import { Category } from "@/types";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
@@ -15,16 +14,9 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 const NavbarActions = ({ data }: { data: Category[] }) => {
   const cart = useCart();
   const router = useRouter();
-  const user = useUser();
 
-  const onclick = () => {
-    const baseUrl = `${process.env.NEXT_PUBLIC_API}/auth/users/login`;
-    const params = new URLSearchParams({
-      redirect: "https://localhost:3001",
-    });
 
-    window.location.href = `${baseUrl}?${params.toString()}`;
-  };
+ 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -58,8 +50,7 @@ const NavbarActions = ({ data }: { data: Category[] }) => {
           {cart.items.length}
         </span>
       </Button>
-      {!user.loggedIn && <Button onClick={onclick}>signin</Button>}
-      {user.loggedIn && user.user && <UserOptions user={user.user} />}
+     
       </div>
   );
 };

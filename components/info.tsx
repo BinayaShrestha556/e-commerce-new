@@ -8,7 +8,7 @@ interface InfoProps{
 const Info:React.FC<InfoProps>=({data})=>{
    
     return(
-        <div>
+        <div className="w-full max-w-96">
             <h1 className="text-3xl font-bold text-gray-900">{data.name}</h1>
             <div className="mt-2 flex items-end justify-between">
                 <div className="text-xl text-gray-900">

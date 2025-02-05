@@ -4,7 +4,7 @@ import useCheckOutStore from "@/hooks/use-checkout_items";
 import Image from "next/image";
 import { Slider } from "./slider";
 
-const CheckOutItems = ({ orderNumber = false }: { orderNumber?: boolean }) => {
+const CheckOutItems = () => {
   const data = useCheckOutStore((store) => store.items);
   return (
     <div className="w-full">
@@ -34,7 +34,7 @@ const CheckOutItems = ({ orderNumber = false }: { orderNumber?: boolean }) => {
               <p className="text-sm text-neutral-500">
                 {product.product.category.name}
               </p>
-            <Slider number={product.number} id={product.product.id} />
+              <Slider number={product.number} id={product.product.id} />
             </div>
           </div>
           <div className="text-right">

@@ -8,9 +8,9 @@ interface GalleryProps{
 }
 const Gallery:React.FC<GalleryProps>=({images})=>{
     return(
-        <Tab.Group as="div" className='flex items-center flex-col-reverse'>
-           <div className="mt-6 hidden w-full max-w-sm sm:block">
-                <Tab.List className="grid grid-cols-4 gap-6">
+        <Tab.Group as="div" className='flex gap-3  flex-row-reverse '>
+           <div className="mt-6  w-fit h-full max-w-sm">
+                <Tab.List className="flex w-16 h-full md:w-20 lg:w-[5.5rem] sm:w-24 flex-col gap-6">
                     {images?.map((image)=>(
                         <GalleryTab key={image.id} images={image}/>
                     ))}
